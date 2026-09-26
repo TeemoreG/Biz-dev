@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
-<meta name="theme-color" content="#f5f7fb" />
+<meta name="theme-color" content="#ffffff" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="BizDev" />
@@ -18,7 +18,7 @@
 
 <style>
 /* ============================================================
-   TOKENS — softer, less saturated blue palette
+   TOKENS
    ============================================================ */
 :root {
   --font-brand: "Space Grotesk", system-ui, sans-serif;
@@ -35,7 +35,6 @@
   --fg-3: #4d5a72;
   --fg-4: #7a869c;
 
-  /* Softer blues — reduced saturation */
   --accent: #2451d6;
   --accent-2: #3a72e0;
   --accent-dim: #1c40ab;
@@ -52,11 +51,15 @@
   --radius-lg: 22px;
   --radius-full: 9999px;
 
-  --nav-h: 64px;
+  /* Fixed heights */
   --header-h: 60px;
+  --nav-h: 64px;
 
+  /* Safe-area insets (notch / gesture bar) */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
 /* ============================================================
@@ -64,7 +67,13 @@
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-html, body { margin: 0; padding: 0; height: 100%; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* Prevent iOS rubber band on the whole page */
+  overscroll-behavior-y: none;
+}
 
 html { -webkit-text-size-adjust: 100%; }
 
@@ -77,8 +86,8 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent any accidental horizontal scroll */
   overflow-x: hidden;
-  overscroll-behavior-y: none;
 }
 
 img, svg { display: block; max-width: 100%; height: auto; }
@@ -92,42 +101,56 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* ============================================================
    APP SHELL
+   A vertical flex column:
+      [header — fixed height, sticky]
+      [screens — flex-1, scrollable]
+      [bottom nav — fixed height]
+   The whole column is 100dvh tall, so nothing ever overflows the
+   viewport and the nav is always visible without scrolling.
    ============================================================ */
 #app {
-  max-width: 480px;
-  margin: 0 auto;
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: var(--bg);
-  position: relative;
-  box-shadow: 0 0 60px -20px rgba(10,20,40,0.12);
   display: flex;
   flex-direction: column;
+  height: 100vh;      /* fallback for older browsers */
+  height: 100dvh;     /* modern: accounts for mobile browser chrome */
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg);
+  position: relative;
   overflow: hidden;
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
 }
 
+/* Desktop: framed "device" look */
 @media (min-width: 900px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
   #app {
+    height: min(880px, calc(100vh - 48px));
+    height: min(880px, calc(100dvh - 48px));
     max-width: 440px;
-    margin: 24px auto;
-    min-height: calc(100vh - 48px);
     border-radius: 32px;
     border: 1px solid var(--border);
+    box-shadow: 0 30px 80px -30px rgba(10,20,40,0.25);
   }
 }
 
 /* ============================================================
-   HEADER
+   HEADER (fixed at top of app shell)
    ============================================================ */
 .appbar {
-  position: sticky;
-  top: 0;
-  z-index: 30;
+  flex-shrink: 0;
   background: rgba(255,255,255,0.94);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
   padding-top: var(--safe-top);
+  z-index: 30;
 }
 
 .appbar-inner {
@@ -177,19 +200,22 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .appbar-action svg { width: 18px; height: 18px; }
 
 /* ============================================================
-   SCREENS
+   SCREENS (the only scrollable region)
    ============================================================ */
 .screens {
   flex: 1;
+  min-height: 0;           /* critical for flex child scroll */
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: calc(var(--nav-h) + var(--safe-bottom) + 16px);
+  overscroll-behavior: contain;   /* prevents page bounce */
+  scroll-behavior: smooth;
 }
 
 .screen {
   display: none;
   animation: screenIn 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  padding-bottom: 24px;
 }
 .screen.active { display: block; }
 
@@ -257,7 +283,6 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 .btn-primary:active {
   background: var(--accent-dim);
   transform: scale(0.98);
-  box-shadow: 0 2px 8px -4px rgba(36,81,214,0.5);
 }
 
 .btn-secondary {
@@ -269,13 +294,6 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
   background: var(--bg-soft-2);
   transform: scale(0.98);
 }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--border-2);
-}
-.btn-ghost:active { background: var(--accent-tint); }
 
 .btn svg { width: 18px; height: 18px; }
 
@@ -410,7 +428,6 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 }
 .card:active { transform: scale(0.99); }
 
-/* Service list item */
 .service-item {
   display: flex;
   align-items: center;
@@ -455,7 +472,9 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 .service-item .chev { color: var(--fg-4); flex-shrink: 0; }
 .service-item .chev svg { width: 18px; height: 18px; }
 
-/* Project item */
+/* ============================================================
+   PROJECT ITEM
+   ============================================================ */
 .project-item {
   background: #fff;
   border: 1px solid var(--border);
@@ -537,7 +556,7 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 .project-link svg { width: 14px; height: 14px; }
 
 /* ============================================================
-   SCREEN HERO (Services / Work / Contact headers)
+   SCREEN HERO
    ============================================================ */
 .screen-hero {
   padding: 32px 20px 24px;
@@ -572,12 +591,10 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
   justify-content: center;
   flex-shrink: 0;
 }
-
 .contact-item .ico.whatsapp { background: #e7f8ee; color: #25D366; }
 .contact-item .ico.phone { background: var(--accent-soft); color: var(--accent); }
 .contact-item .ico.email { background: #fdf1e7; color: #d97706; }
 .contact-item .ico.location { background: #fce7f3; color: #db2777; }
-
 .contact-item .ico svg { width: 22px; height: 22px; }
 
 .contact-item .body { flex: 1; min-width: 0; }
@@ -667,7 +684,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 .value-item p { font-size: 0.85rem; color: var(--fg-3); line-height: 1.5; }
 
 /* ============================================================
-   FAQ ACCORDION
+   FAQ
    ============================================================ */
 .faq {
   background: #fff;
@@ -725,7 +742,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 }
 
 /* ============================================================
-   PROCESS TIMELINE
+   PROCESS
    ============================================================ */
 .process-item {
   display: flex;
@@ -813,7 +830,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 .testimonial .who .role { font-size: 0.75rem; color: var(--fg-4); }
 
 /* ============================================================
-   SOCIAL STRIP
+   SOCIALS
    ============================================================ */
 .socials {
   display: flex;
@@ -840,42 +857,23 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
 .social.github { color: #181717; }
 .social.linkedin { color: #0A66C2; }
-.social.twitter { color: #000000; }
 .social.instagram { color: #E1306C; }
 .social.whatsapp { color: #25D366; }
 .social.email { color: var(--accent); }
 
 /* ============================================================
-   FLOATING CALL BAR (mobile sticky)
+   BOTTOM NAV — ALWAYS VISIBLE, PINNED AT BOTTOM OF APP SHELL
    ============================================================ */
-.call-bar {
-  position: sticky;
-  bottom: 0;
-  z-index: 25;
+.bottom-nav {
+  flex-shrink: 0;                     /* never shrink */
   background: rgba(255,255,255,0.96);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-top: 1px solid var(--border);
-  padding: 12px 16px;
-  padding-bottom: calc(12px + var(--safe-bottom));
-  display: none;
-  gap: 10px;
-}
-.call-bar.show { display: flex; }
-.call-bar .btn { flex: 1; padding: 13px 16px; font-size: 0.9rem; }
-
-/* ============================================================
-   BOTTOM NAV
-   ============================================================ */
-.bottom-nav {
-  position: sticky;
-  bottom: 0;
-  z-index: 30;
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-top: 1px solid var(--border);
   padding-bottom: var(--safe-bottom);
+  z-index: 30;
+  /* Ensure the nav sits above scrolling content */
+  position: relative;
 }
 
 .bottom-nav-inner {
@@ -899,6 +897,8 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
   position: relative;
   font-size: 0.68rem;
   font-weight: 600;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .nav-item svg {
@@ -912,7 +912,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 .nav-item.active svg { stroke-width: 2.4; transform: translateY(-1px); }
 .nav-item:active svg { transform: scale(0.9); }
 
-/* FAB */
+/* FAB (center) */
 .nav-item.fab { position: relative; }
 .nav-item.fab .fab-circle {
   width: 52px;
@@ -963,6 +963,45 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
 /* ============================================================
+   RESPONSIVE TWEAKS
+   ============================================================ */
+
+/* Very small phones (e.g. iPhone SE 1st gen, 320px) */
+@media (max-width: 360px) {
+  :root { --header-h: 56px; --nav-h: 60px; }
+  .appbar-logo img { width: 34px; height: 34px; }
+  .appbar-logo { font-size: 1.05rem; }
+  .appbar-action { width: 36px; height: 36px; }
+  .hero h1, .screen-hero h1, .about-hero h1 { font-size: 1.7rem; }
+  .hero-logo { width: 100px; height: 100px; }
+  .nav-item svg { width: 20px; height: 20px; }
+  .nav-item { font-size: 0.62rem; }
+  .nav-item.fab .fab-circle { width: 46px; height: 46px; }
+  .nav-item.fab .fab-circle svg { width: 20px; height: 20px; }
+  .pad, .pad-x, .contact-list, .form, .socials { padding-left: 16px; padding-right: 16px; }
+  .section-title { padding-left: 16px; padding-right: 16px; }
+}
+
+/* Tablets — keep the phone-frame look */
+@media (min-width: 768px) and (max-width: 899px) {
+  #app { max-width: 500px; }
+  .bottom-nav-inner { max-width: 500px; }
+}
+
+/* Desktop — framed view (see #app @media above) */
+@media (min-width: 900px) {
+  .bottom-nav-inner { max-width: 440px; }
+}
+
+/* Landscape phones — shrink header and nav so content has room */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root { --header-h: 52px; --nav-h: 56px; }
+  .appbar-logo img { width: 32px; height: 32px; }
+  .hero { padding-top: 16px; padding-bottom: 16px; }
+  .hero-logo { width: 80px; height: 80px; margin-bottom: 12px; }
+}
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
@@ -975,7 +1014,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 <div id="app">
 
   <!-- ============================================================
-       APP BAR
+       APP BAR (fixed top)
        ============================================================ -->
   <header class="appbar">
     <div class="appbar-inner">
@@ -997,7 +1036,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
   </header>
 
   <!-- ============================================================
-       SCREENS
+       SCREENS (only scrollable area)
        ============================================================ -->
   <div class="screens" id="screens">
 
@@ -1649,7 +1688,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
   </div>
 
   <!-- ============================================================
-       BOTTOM NAV
+       BOTTOM NAV — always visible, fixed to bottom of app shell
        ============================================================ -->
   <nav class="bottom-nav">
     <div class="bottom-nav-inner">
@@ -1684,10 +1723,11 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
 <script>
   var currentScreen = "home";
+  var scroller;
 
   function navigate(screen) {
     if (screen === currentScreen) {
-      document.getElementById("screens").scrollTo({ top: 0, behavior: "smooth" });
+      if (scroller) scroller.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
@@ -1702,7 +1742,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
       n.classList.toggle("active", n.getAttribute("data-screen") === screen);
     });
 
-    document.getElementById("screens").scrollTo({ top: 0, behavior: "instant" });
+    if (scroller) scroller.scrollTo({ top: 0, behavior: "instant" });
 
     currentScreen = screen;
 
@@ -1715,7 +1755,6 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
     var item = btn.closest(".faq-item");
     var isOpen = item.classList.contains("open");
 
-    // Close all
     document.querySelectorAll(".faq-item").forEach(function (i) {
       i.classList.remove("open");
     });
@@ -1760,6 +1799,8 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
   }
 
   (function init() {
+    scroller = document.getElementById("screens");
+
     var hash = (window.location.hash || "").replace("#", "");
     var valid = ["home", "services", "work", "about", "contact"];
     if (hash && valid.indexOf(hash) !== -1) {

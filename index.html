@@ -1,1073 +1,1447 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Management System · Concept UI</title>
-  <!-- Google Font & Font Awesome for icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: linear-gradient(145deg, #f1f5fc 0%, #e6edf7 100%);
-      font-family: 'Inter', sans-serif;
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .page-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .page-header h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #0a2540;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .page-header h1 i {
-      background: #1e6f9f;
-      color: white;
-      padding: 0.5rem;
-      border-radius: 18px;
-      font-size: 1.6rem;
-    }
-
-    .page-header p {
-      color: #3c5a7d;
-      font-size: 1.1rem;
-      margin-top: 0.5rem;
-      font-weight: 400;
-    }
-
-    /* showcase grid */
-    .showcase {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 2.5rem 3rem;
-      max-width: 1300px;
-      width: 100%;
-    }
-
-    /* ----- device frames ----- */
-    .device {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .device-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      color: #1e4c6b;
-      margin-top: 1rem;
-      text-transform: uppercase;
-      opacity: 0.8;
-      background: rgba(255,255,255,0.7);
-      padding: 0.25rem 1rem;
-      border-radius: 40px;
-      backdrop-filter: blur(4px);
-    }
-
-    /* ----- mobile (phone) ----- */
-    .phone {
-      width: 300px;
-      background: #0f172a;
-      border-radius: 44px;
-      padding: 12px 6px;
-      box-shadow: 0 30px 40px -15px rgba(0, 20, 40, 0.4), 0 0 0 2px #a0b8d0 inset;
-    }
-
-    .phone-screen {
-      background: #ffffff;
-      border-radius: 36px;
-      overflow: hidden;
-      height: 620px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    /* dynamic island / notch */
-    .phone-screen::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 110px;
-      height: 28px;
-      background: #0f172a;
-      border-radius: 30px;
-      z-index: 10;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    /* status bar */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      padding: 16px 20px 8px 20px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #1e293b;
-      background: white;
-    }
-
-    .status-bar i {
-      font-size: 12px;
-      margin-left: 4px;
-    }
-
-    /* mobile app content */
-    .mobile-app {
-      padding: 0 18px 16px;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      background: #f8fafd;
-      overflow-y: auto;
-    }
-
-    .mobile-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 8px 0 16px;
-    }
-
-    .mobile-header h2 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #0b2a41;
-    }
-
-    .avatar {
-      background: #1e6f9f;
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-      font-size: 18px;
-    }
-
-    .welcome-card {
-      background: linear-gradient(135deg, #1e6f9f, #0f4b6e);
-      border-radius: 26px;
-      padding: 18px 18px;
-      color: white;
-      margin-bottom: 18px;
-      box-shadow: 0 10px 20px -5px rgba(20, 80, 120, 0.3);
-    }
-
-    .welcome-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .welcome-card p {
-      font-size: 13px;
-      opacity: 0.9;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-
-    .welcome-card .progress-badge {
-      background: rgba(255,255,255,0.2);
-      border-radius: 40px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(4px);
-    }
-
-    .quick-stats {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .stat-item {
-      background: white;
-      padding: 14px 8px;
-      border-radius: 22px;
-      text-align: center;
-      flex: 1;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.02);
-      border: 1px solid #e9eff5;
-    }
-
-    .stat-item i {
-      font-size: 20px;
-      color: #1e6f9f;
-      background: #e3f0fa;
-      padding: 8px;
-      border-radius: 14px;
-      margin-bottom: 8px;
-      display: inline-block;
-    }
-
-    .stat-item .stat-value {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0b2a41;
-    }
-
-    .stat-item .stat-label {
-      font-size: 11px;
-      color: #5e7a9a;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .section-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0b2a41;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .section-title a {
-      font-size: 13px;
-      font-weight: 500;
-      color: #1e6f9f;
-      text-decoration: none;
-    }
-
-    .class-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .class-item {
-      background: white;
-      border-radius: 20px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-      border: 1px solid #e9eff5;
-    }
-
-    .class-icon {
-      background: #d4e6f5;
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      color: #1e6f9f;
-      font-weight: 600;
-    }
-
-    .class-info h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0b2a41;
-    }
-
-    .class-info p {
-      font-size: 12px;
-      color: #6b8aa8;
-      font-weight: 500;
-    }
-
-    .class-time {
-      margin-left: auto;
-      font-size: 12px;
-      font-weight: 600;
-      background: #e9f2fa;
-      padding: 6px 10px;
-      border-radius: 30px;
-      color: #1e6f9f;
-    }
-
-    /* bottom nav mobile */
-    .bottom-nav {
-      display: flex;
-      justify-content: space-around;
-      background: white;
-      padding: 10px 12px;
-      border-top: 1px solid #e2ebf3;
-      margin-top: auto;
-    }
-
-    .bottom-nav i {
-      font-size: 20px;
-      color: #92a9c0;
-    }
-
-    .bottom-nav i.active {
-      color: #1e6f9f;
-    }
-
-    /* ----- tablet ----- */
-    .tablet {
-      width: 520px;
-      background: #0f172a;
-      border-radius: 36px;
-      padding: 12px 8px;
-      box-shadow: 0 30px 40px -15px rgba(0, 20, 40, 0.4), 0 0 0 2px #a0b8d0 inset;
-    }
-
-    .tablet-screen {
-      background: #ffffff;
-      border-radius: 28px;
-      overflow: hidden;
-      height: 680px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    /* tablet layout */
-    .tablet-app {
-      display: flex;
-      height: 100%;
-    }
-
-    .tablet-sidebar {
-      width: 90px;
-      background: #f3f8fe;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 28px 0 20px;
-      border-right: 1px solid #deeaf3;
-      gap: 30px;
-    }
-
-    .tablet-sidebar i {
-      font-size: 22px;
-      color: #92a9c0;
-      padding: 12px;
-      border-radius: 16px;
-      transition: 0.2s;
-    }
-
-    .tablet-sidebar i.active {
-      background: #1e6f9f;
-      color: white;
-      box-shadow: 0 8px 16px -6px #1e6f9f;
-    }
-
-    .tablet-main {
-      flex: 1;
-      padding: 28px 28px 20px;
-      background: #ffffff;
-      overflow-y: auto;
-    }
-
-    .tablet-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .tablet-header h2 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #0b2a41;
-    }
-
-    .tablet-header .avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      font-size: 20px;
-    }
-
-    .tablet-welcome {
-      background: linear-gradient(135deg, #1e6f9f, #0f4b6e);
-      border-radius: 30px;
-      padding: 22px 28px;
-      color: white;
-      margin-bottom: 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 12px 22px -10px rgba(20,80,120,0.4);
-    }
-
-    .tablet-welcome h3 {
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .tablet-welcome p {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-top: 4px;
-    }
-
-    .tablet-stats {
-      display: flex;
-      gap: 18px;
-      margin-bottom: 30px;
-    }
-
-    .tablet-stat-card {
-      background: #f8fcff;
-      border: 1px solid #dae8f2;
-      border-radius: 24px;
-      padding: 18px 20px;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .tablet-stat-card i {
-      font-size: 26px;
-      background: #e3f0fa;
-      padding: 12px;
-      border-radius: 18px;
-      color: #1e6f9f;
-    }
-
-    .tablet-stat-card .info h4 {
-      font-size: 20px;
-      font-weight: 700;
-      color: #0b2a41;
-    }
-
-    .tablet-stat-card .info span {
-      font-size: 13px;
-      color: #5e7a9a;
-    }
-
-    .tablet-class-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 8px;
-    }
-
-    .tablet-class-item {
-      background: #ffffff;
-      border: 1px solid #e3eef8;
-      border-radius: 22px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.01);
-    }
-
-    .tablet-class-item .class-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
-      font-size: 22px;
-    }
-
-    .tablet-class-item .class-info h4 {
-      font-size: 16px;
-    }
-
-    /* ----- desktop / laptop ----- */
-    .desktop {
-      width: 860px;
-      background: #0f172a;
-      border-radius: 30px;
-      padding: 12px 8px;
-      box-shadow: 0 40px 50px -20px rgba(0, 20, 40, 0.5), 0 0 0 2px #a0b8d0 inset;
-    }
-
-    .desktop-screen {
-      background: #ffffff;
-      border-radius: 24px;
-      overflow: hidden;
-      height: 560px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* desktop layout */
-    .desktop-app {
-      display: flex;
-      height: 100%;
-    }
-
-    .desktop-sidebar {
-      width: 220px;
-      background: #f3f8fe;
-      padding: 28px 16px;
-      border-right: 1px solid #deeaf3;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .desktop-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 12px 28px;
-      font-weight: 700;
-      font-size: 18px;
-      color: #0b2a41;
-    }
-
-    .desktop-logo i {
-      background: #1e6f9f;
-      color: white;
-      padding: 8px;
-      border-radius: 14px;
-      font-size: 16px;
-    }
-
-    .desktop-nav-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-weight: 500;
-      font-size: 15px;
-      color: #4a6582;
-      margin-bottom: 6px;
-    }
-
-    .desktop-nav-item i {
-      width: 22px;
-      font-size: 18px;
-      color: #7b98b3;
-    }
-
-    .desktop-nav-item.active {
-      background: #1e6f9f;
-      color: white;
-    }
-
-    .desktop-nav-item.active i {
-      color: white;
-    }
-
-    .desktop-main {
-      flex: 1;
-      padding: 26px 32px 20px;
-      overflow-y: auto;
-      background: #ffffff;
-    }
-
-    .desktop-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .desktop-top-bar h2 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #0b2a41;
-    }
-
-    .desktop-actions {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .desktop-actions .avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-    }
-
-    .desktop-welcome-grid {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-
-    .desktop-welcome-card {
-      background: linear-gradient(135deg, #1e6f9f, #0f4b6e);
-      border-radius: 28px;
-      padding: 24px 28px;
-      color: white;
-      flex: 2;
-    }
-
-    .desktop-welcome-card h3 {
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    .desktop-welcome-card p {
-      font-size: 14px;
-      opacity: 0.9;
-      margin: 8px 0 16px;
-    }
-
-    .desktop-mini-stats {
-      display: flex;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .desktop-mini-stats span {
-      background: rgba(255,255,255,0.15);
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-size: 13px;
-      font-weight: 500;
-      backdrop-filter: blur(4px);
-    }
-
-    .desktop-quick-card {
-      background: #f8fcff;
-      border: 1px solid #dae8f2;
-      border-radius: 28px;
-      padding: 22px 26px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .desktop-quick-card .stat-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .desktop-quick-card .stat-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .desktop-quick-card .stat-row i {
-      color: #1e6f9f;
-      font-size: 22px;
-      background: #e3f0fa;
-      padding: 8px;
-      border-radius: 14px;
-    }
-
-    .desktop-quick-card .stat-row .value {
-      font-weight: 700;
-      font-size: 20px;
-      color: #0b2a41;
-    }
-
-    .desktop-quick-card .stat-row .label {
-      font-size: 13px;
-      color: #5e7a9a;
-    }
-
-    .desktop-class-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 12px;
-    }
-
-    .desktop-class-card {
-      background: white;
-      border: 1px solid #e3eef8;
-      border-radius: 22px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    }
-
-    .desktop-class-card .class-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 18px;
-    }
-
-    .desktop-class-card .class-info h4 {
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .desktop-class-card .class-info p {
-      font-size: 12px;
-    }
-
-    /* utility */
-    .text-muted {
-      color: #6b8aa8;
-    }
-
-    /* responsive adjustments */
-    @media (max-width: 1000px) {
-      .showcase {
-        gap: 2rem;
-      }
-      .desktop {
-        width: 100%;
-        max-width: 860px;
-      }
-    }
-
-    @media (max-width: 700px) {
-      body {
-        padding: 1.5rem 1rem;
-      }
-      .page-header h1 {
-        font-size: 1.7rem;
-      }
-      .tablet {
-        width: 100%;
-        max-width: 520px;
-      }
-      .desktop {
-        width: 100%;
-      }
-    }
-
-    /* scrollbar styling for mockups */
-    .mobile-app::-webkit-scrollbar,
-    .tablet-main::-webkit-scrollbar,
-    .desktop-main::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .mobile-app::-webkit-scrollbar-thumb,
-    .tablet-main::-webkit-scrollbar-thumb,
-    .desktop-main::-webkit-scrollbar-thumb {
-      background: #cbdae7;
-      border-radius: 10px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#001cff" />
+<title>BizDev — Software Studio</title>
+<meta name="description" content="Websites, apps & e-commerce built to scale. Custom software from Nairobi for clients worldwide." />
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --font-brand: "Space Grotesk", system-ui, sans-serif;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --bg: #ffffff;
+  --bg-soft: #f4f7fb;
+  --bg-soft-2: #eaf0f8;
+  --bg-dark: #071124;
+  --bg-dark-2: #0d1a33;
+
+  --fg: #05080f;
+  --fg-2: #1c2740;
+  --fg-3: #47536b;
+  --fg-4: #6b7794;
+
+  --accent: #001cff;
+  --accent-2: #00a2ff;
+  --accent-dim: #0014b8;
+  --accent-soft: #e6f0ff;
+
+  --border: #e2e8f0;
+  --border-2: #cbd5e1;
+
+  --grad: linear-gradient(135deg, #00a2ff 0%, #001cff 100%);
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --radius-full: 9999px;
+
+  --nav-h: 64px;
+  --header-h: 60px;
+
+  /* Safe areas */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body { margin: 0; padding: 0; height: 100%; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg-soft);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  user-select: none;
+}
+
+img, svg { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; padding: 0; }
+input, textarea, select { font-family: inherit; font-size: 16px; color: inherit; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: var(--accent); color: #fff; }
+
+/* Scrollbars hidden on mobile, subtle on desktop */
+::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+  position: relative;
+  box-shadow: 0 0 60px -20px rgba(10,20,40,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  #app {
+    max-width: 440px;
+    margin: 24px auto;
+    min-height: calc(100vh - 48px);
+    border-radius: 32px;
+    border: 1px solid var(--border);
+  }
+}
+
+/* ============================================================
+   HEADER (App bar)
+   ============================================================ */
+.appbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  padding-top: var(--safe-top);
+}
+
+.appbar-inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.appbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.appbar-logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.appbar-logo .accent { color: var(--accent); }
+
+.appbar-action {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s;
+}
+.appbar-action:active { transform: scale(0.92); }
+.appbar-action svg { width: 20px; height: 20px; }
+
+/* ============================================================
+   SCREENS (page views)
+   ============================================================ */
+.screens {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--nav-h) + var(--safe-bottom) + 16px);
+}
+
+.screen {
+  display: none;
+  animation: screenIn 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.screen.active { display: block; }
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4 {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--fg);
+  margin: 0;
+}
+
+h1 { font-size: 2rem; line-height: 1.1; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.1rem; line-height: 1.25; }
+
+.label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+  margin: 0;
+}
+
+.gradient-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 22px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.15s ease;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:active {
+  background: var(--accent-dim);
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--bg-soft);
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+.btn-secondary:active {
+  background: var(--bg-soft-2);
+  transform: scale(0.98);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border-2);
+  color: var(--fg);
+}
+
+.btn svg { width: 18px; height: 18px; }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.pad { padding: 20px; }
+.pad-x { padding-left: 20px; padding-right: 20px; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  padding: 28px 20px 24px;
+  background: radial-gradient(120% 90% at 100% 0%, #e6f0ff 0%, transparent 55%);
+  text-align: center;
+}
+
+.hero-logo {
+  width: 120px;
+  height: 120px;
+  margin: 8px auto 20px;
+  object-fit: contain;
+}
+
+.hero h1 { font-size: 2rem; margin-bottom: 12px; }
+
+.hero .sub {
+  color: var(--fg-3);
+  font-size: 0.98rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.hero-stat {
+  background: #fff;
+  padding: 18px 14px;
+  text-align: left;
+}
+.hero-stat .n {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--fg);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.hero-stat .l {
+  font-size: 0.75rem;
+  color: var(--fg-3);
+  font-weight: 500;
+}
+
+/* ============================================================
+   CARDS / LISTS
+   ============================================================ */
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition: all 0.15s;
+}
+.card:active { transform: scale(0.99); }
+
+.section-title {
+  padding: 28px 20px 12px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.section-title h2 { font-size: 1.25rem; }
+.section-title a {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Service card */
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.service-item:active { transform: scale(0.99); background: var(--bg-soft); }
+
+.service-item .ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.service-item .ico svg { width: 22px; height: 22px; }
+
+.service-item .body { flex: 1; min-width: 0; }
+.service-item .name {
+  font-family: var(--font-brand);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--fg);
+  margin-bottom: 2px;
+}
+.service-item .desc {
+  font-size: 0.82rem;
+  color: var(--fg-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.service-item .chev {
+  color: var(--fg-4);
+  flex-shrink: 0;
+}
+.service-item .chev svg { width: 18px; height: 18px; }
+
+/* Project card */
+.project-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: all 0.15s;
+}
+.project-item:active { transform: scale(0.99); }
+
+.project-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.project-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.project-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+
+.project-head-text { flex: 1; min-width: 0; }
+.project-head-text .cat {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.project-head-text h3 {
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-item .summary {
+  font-size: 0.88rem;
+  color: var(--fg-2);
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.project-tags span {
+  font-size: 0.68rem;
+  padding: 4px 9px;
+  border-radius: var(--radius-full);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--fg-3);
+  font-weight: 500;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.project-link svg { width: 14px; height: 14px; }
+
+/* ============================================================
+   CONTACT SCREEN
+   ============================================================ */
+.contact-hero {
+  padding: 32px 20px 24px;
+  background: radial-gradient(120% 80% at 100% 0%, #e6f0ff 0%, transparent 55%);
+}
+.contact-hero h1 { font-size: 1.9rem; margin-bottom: 8px; }
+.contact-hero p { color: var(--fg-3); font-size: 0.95rem; }
+
+.contact-list { display: flex; flex-direction: column; gap: 10px; padding: 0 20px; }
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: all 0.15s;
+}
+.contact-item:active { transform: scale(0.99); background: var(--bg-soft); }
+
+.contact-item .ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-item .ico svg { width: 20px; height: 20px; }
+
+.contact-item .body { flex: 1; min-width: 0; }
+.contact-item .k {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+  margin-bottom: 2px;
+}
+.contact-item .v {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Form */
+.form { display: flex; flex-direction: column; gap: 12px; padding: 0 20px; }
+
+.field {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 15px 16px;
+  font-size: 16px;
+  transition: all 0.15s;
+  outline: none;
+  font-weight: 500;
+}
+.field::placeholder { color: var(--fg-4); font-weight: 500; }
+.field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0,28,255,0.08);
+}
+textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
+
+/* ============================================================
+   ABOUT SCREEN
+   ============================================================ */
+.about-hero {
+  padding: 32px 20px 24px;
+  text-align: center;
+}
+.about-hero img {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 16px;
+  object-fit: contain;
+}
+.about-hero h1 { font-size: 1.7rem; margin-bottom: 8px; }
+.about-hero p { color: var(--fg-3); font-size: 0.95rem; }
+
+.value-item {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.value-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.value-item h3 { font-size: 0.98rem; margin-bottom: 4px; }
+.value-item p { font-size: 0.85rem; color: var(--fg-3); line-height: 1.5; }
+
+/* ============================================================
+   BOTTOM NAV
+   ============================================================ */
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  z-index: 30;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid var(--border);
+  padding-bottom: var(--safe-bottom);
+}
+
+.bottom-nav-inner {
+  height: var(--nav-h);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  color: var(--fg-4);
+  transition: color 0.2s;
+  position: relative;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.nav-item svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2;
+  transition: transform 0.2s;
+}
+
+.nav-item.active {
+  color: var(--accent);
+}
+.nav-item.active svg {
+  stroke-width: 2.4;
+  transform: translateY(-1px);
+}
+
+.nav-item:active svg {
+  transform: scale(0.9);
+}
+
+/* Center FAB (Chat / Contact) */
+.nav-item.fab {
+  position: relative;
+}
+.nav-item.fab .fab-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px -4px rgba(0,28,255,0.4);
+  transform: translateY(-14px);
+  margin-bottom: -14px;
+}
+.nav-item.fab .fab-circle svg {
+  width: 24px;
+  height: 24px;
+  transform: none;
+}
+.nav-item.fab:active .fab-circle { transform: translateY(-12px) scale(0.95); }
+.nav-item.fab .fab-label {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--fg-4);
+}
+.nav-item.fab.active .fab-label { color: var(--accent); }
+
+/* ============================================================
+   TOAST / CONFIRM
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: calc(var(--nav-h) + 20px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  background: var(--bg-dark);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 12px 30px -8px rgba(0,0,0,0.4);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 100;
+  max-width: calc(100% - 40px);
+  text-align: center;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ============================================================
+   HERO SCROLL SNAP INDICATOR (small dot)
+   ============================================================ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
 </head>
 <body>
-  <div class="page-header">
-    <h1>
-      <i class="fas fa-graduation-cap"></i>
-      EduManage · Concept UI
-    </h1>
-    <p>Modern school management system – across mobile, tablet & desktop</p>
+
+<div id="app">
+
+  <!-- ============================================================
+       APP BAR
+       ============================================================ -->
+  <header class="appbar">
+    <div class="appbar-inner">
+      <a href="#" class="appbar-logo" onclick="navigate('home'); return false;">
+        <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" alt="BizDev" />
+        Biz<span class="accent">Dev</span>
+      </a>
+      <a href="tel:0740940395" class="appbar-action" aria-label="Call BizDev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SCREENS
+       ============================================================ -->
+  <div class="screens" id="screens">
+
+    <!-- ============ HOME ============ -->
+    <section class="screen active" id="screen-home">
+      <div class="hero">
+        <img class="hero-logo" src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" alt="BizDev" />
+        <span class="pill" style="margin-bottom:16px;"><span class="dot"></span> Available for new projects</span>
+        <h1>We build software that <span class="gradient-text">sells.</span></h1>
+        <p class="sub">Websites, e-commerce, mobile apps, and web applications — from Nairobi for clients worldwide.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="navigate('contact')">
+            Start a project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <button class="btn btn-secondary" onclick="navigate('services')">View services</button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="n">6+</div>
+            <div class="l">Live projects</div>
+          </div>
+          <div class="hero-stat">
+            <div class="n">4</div>
+            <div class="l">Core services</div>
+          </div>
+          <div class="hero-stat">
+            <div class="n">24h</div>
+            <div class="l">Reply time</div>
+          </div>
+          <div class="hero-stat">
+            <div class="n">KE</div>
+            <div class="l">+ worldwide</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>What we do</h2>
+        <a href="#" onclick="navigate('services'); return false;">See all</a>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column; gap:10px;">
+        <div class="service-item" onclick="navigate('services')">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="body">
+            <div class="name">Website Development</div>
+            <div class="desc">Fast, custom, conversion-focused</div>
+          </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+
+        <div class="service-item" onclick="navigate('services')">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <div class="body">
+            <div class="name">E-commerce Stores</div>
+            <div class="desc">M-Pesa · Card · Google Pay</div>
+          </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+
+        <div class="service-item" onclick="navigate('services')">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <div class="body">
+            <div class="name">Mobile Apps</div>
+            <div class="desc">iOS + Android from one codebase</div>
+          </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+
+        <div class="service-item" onclick="navigate('services')">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <div class="body">
+            <div class="name">Web Apps & SaaS</div>
+            <div class="desc">Dashboards, portals, platforms</div>
+          </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>Recent work</h2>
+        <a href="#" onclick="navigate('work'); return false;">View all</a>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column; gap:10px;">
+        <div class="project-item" onclick="navigate('work')">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790354845/gucU00JIKnFROVKeIQWOw0RRJEiFGPA-CSo47Gs7WwKnXIlqONwT1M-8nv69IzTzvg_5_mZiAmHVM1eSmsoc_w240-h480-rw_brche3.webp" alt="Evopay" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">POS · Web App</div>
+              <h3>Evopay</h3>
+            </div>
+          </div>
+          <p class="summary">Cashier-based POS and payment system for service businesses.</p>
+        </div>
+
+        <div class="project-item" onclick="navigate('work')">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790355005/liquorbelle_tyvl9d.webp" alt="LiquorBelle" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">E-commerce · Alcohol</div>
+              <h3>LiquorBelle</h3>
+            </div>
+          </div>
+          <p class="summary">Alcohol delivery e-commerce for Nairobi with same-day delivery.</p>
+        </div>
+      </div>
+
+      <div class="pad" style="margin-top:24px;">
+        <div style="background:var(--bg-dark); border-radius:var(--radius-lg); padding:24px; color:#fff; position:relative; overflow:hidden;">
+          <div style="position:absolute; top:-40%; right:-20%; width:240px; height:240px; background:radial-gradient(circle, rgba(0,28,255,0.5) 0%, transparent 70%);"></div>
+          <p class="label" style="color:#6b82a8; position:relative;">Ready when you are</p>
+          <h2 style="color:#fff; margin:8px 0 12px; font-size:1.25rem; position:relative;">Tell us what you want to build.</h2>
+          <p style="color:#a8b6cc; font-size:0.9rem; margin-bottom:18px; position:relative;">Fixed-scope proposal within 24 hours.</p>
+          <button class="btn btn-primary" style="background:var(--accent-2); position:relative;" onclick="navigate('contact')">Start a project</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="screen" id="screen-services">
+      <div class="contact-hero">
+        <p class="label">Services</p>
+        <h1>Four things we do <span class="gradient-text">exceptionally well.</span></h1>
+        <p class="mt-8">Fixed scope. Fixed price. No surprise invoices.</p>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column; gap:14px;">
+
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+            <div class="ico" style="width:46px; height:46px; border-radius:12px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px; height:22px;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+              <h3>Website Development</h3>
+              <div style="font-size:0.8rem; color:var(--accent); font-weight:600;">Fast, custom, conversion-focused</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem; color:var(--fg-3); margin-bottom:14px;">Custom marketing sites built with React or Next.js — optimized for speed, SEO, and conversions.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid var(--border);">
+            <div>
+              <div class="label">From</div>
+              <div style="font-family:var(--font-brand); font-weight:700; font-size:1.15rem;">$450</div>
+              <div style="font-size:0.75rem; color:var(--fg-4);">≈ KSh 58,050</div>
+            </div>
+            <div style="font-size:0.7rem; font-weight:700; color:var(--fg-4); text-transform:uppercase; letter-spacing:0.08em;">1–3 weeks</div>
+          </div>
+        </div>
+
+        <div class="card" style="border-color: rgba(0,28,255,0.25);">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <div style="width:46px; height:46px; border-radius:12px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px; height:22px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </div>
+              <div>
+                <h3>E-commerce Stores</h3>
+                <div style="font-size:0.8rem; color:var(--accent); font-weight:600;">Sell anywhere. Get paid everywhere.</div>
+              </div>
+            </div>
+            <span style="background:var(--accent-soft); color:var(--accent); font-size:0.62rem; font-weight:800; padding:4px 8px; border-radius:var(--radius-full); text-transform:uppercase; letter-spacing:0.06em; flex-shrink:0;">Popular</span>
+          </div>
+          <p style="font-size:0.9rem; color:var(--fg-3); margin-bottom:14px;">Full e-commerce builds with M-Pesa, card, and Google Pay checkout. Built for Kenyan and global customers.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid var(--border);">
+            <div>
+              <div class="label">From</div>
+              <div style="font-family:var(--font-brand); font-weight:700; font-size:1.15rem;">$800</div>
+              <div style="font-size:0.75rem; color:var(--fg-4);">≈ KSh 103,200</div>
+            </div>
+            <div style="font-size:0.7rem; font-weight:700; color:var(--fg-4); text-transform:uppercase; letter-spacing:0.08em;">2–5 weeks</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+            <div style="width:46px; height:46px; border-radius:12px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px; height:22px;"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <div>
+              <h3>Mobile Apps</h3>
+              <div style="font-size:0.8rem; color:var(--accent); font-weight:600;">iOS + Android from one codebase</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem; color:var(--fg-3); margin-bottom:14px;">Cross-platform mobile apps using React Native — marketplaces, delivery, fintech, on-demand services.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid var(--border);">
+            <div>
+              <div class="label">From</div>
+              <div style="font-family:var(--font-brand); font-weight:700; font-size:1.15rem;">$1,200</div>
+              <div style="font-size:0.75rem; color:var(--fg-4);">≈ KSh 154,800</div>
+            </div>
+            <div style="font-size:0.7rem; font-weight:700; color:var(--fg-4); text-transform:uppercase; letter-spacing:0.08em;">4–8 weeks</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+            <div style="width:46px; height:46px; border-radius:12px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px; height:22px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <div>
+              <h3>Web Apps & SaaS</h3>
+              <div style="font-size:0.8rem; color:var(--accent); font-weight:600;">Dashboards, portals, platforms</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem; color:var(--fg-3); margin-bottom:14px;">Custom web applications — booking systems, dashboards, CRMs, multi-tenant SaaS platforms.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid var(--border);">
+            <div>
+              <div class="label">From</div>
+              <div style="font-family:var(--font-brand); font-weight:700; font-size:1.15rem;">$1,500</div>
+              <div style="font-size:0.75rem; color:var(--fg-4);">≈ KSh 193,500</div>
+            </div>
+            <div style="font-size:0.7rem; font-weight:700; color:var(--fg-4); text-transform:uppercase; letter-spacing:0.08em;">6–12 weeks</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pad" style="margin-top:16px;">
+        <button class="btn btn-primary" onclick="navigate('contact')">Discuss your project</button>
+      </div>
+    </section>
+
+    <!-- ============ WORK / PROJECTS ============ -->
+    <section class="screen" id="screen-work">
+      <div class="contact-hero">
+        <p class="label">Selected work</p>
+        <h1>Real projects.<br><span class="gradient-text">Real clients.</span></h1>
+        <p class="mt-8">A sample of what we've shipped across Kenya and beyond.</p>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column; gap:12px;">
+
+        <div class="project-item">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790354845/gucU00JIKnFROVKeIQWOw0RRJEiFGPA-CSo47Gs7WwKnXIlqONwT1M-8nv69IzTzvg_5_mZiAmHVM1eSmsoc_w240-h480-rw_brche3.webp" alt="Evopay" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">Web App · POS</div>
+              <h3>Evopay</h3>
+            </div>
+          </div>
+          <p class="summary">Multi-tenant POS + cashier system for car washes, salons, and service businesses. Shift reporting, M-Pesa reconciliation, role-gated dashboards.</p>
+          <div class="project-tags">
+            <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>M-Pesa</span>
+          </div>
+          <a href="https://carwash.evopay.africa" target="_blank" rel="noopener" class="project-link">
+            Visit live
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+
+        <div class="project-item">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790355149/637788859-893709780083337-3836413152566769247-n_rwaxql.webp" alt="Royal Hope Care" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">Website · Healthcare</div>
+              <h3>Royal Hope Care</h3>
+            </div>
+          </div>
+          <p class="summary">Healthcare provider site with service listings, practitioner profiles, and structured enquiry flow.</p>
+          <div class="project-tags">
+            <span>React</span><span>Node.js</span><span>Tailwind</span>
+          </div>
+          <a href="https://royalhopecare.co.ke" target="_blank" rel="noopener" class="project-link">
+            Visit live
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+
+        <div class="project-item">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790355071/prime_yrgcln_uzoaoy.png" alt="Prime Consultancy" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">Website · Corporate</div>
+              <h3>Prime Consultancy</h3>
+            </div>
+          </div>
+          <p class="summary">Consultancy site presenting services, case studies, and a lead capture pipeline with structured content.</p>
+          <div class="project-tags">
+            <span>React</span><span>Node.js</span><span>Tailwind</span>
+          </div>
+          <a href="https://primeconsultancy.co.ke" target="_blank" rel="noopener" class="project-link">
+            Visit live
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+
+        <div class="project-item">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790355184/logo_n4lear.webp" alt="Dr. Gichina Mukuria" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">Website · Professional</div>
+              <h3>Dr. Gichina Mukuria</h3>
+            </div>
+          </div>
+          <p class="summary">Professional practice site — bio, services, publications, and a structured enquiry form.</p>
+          <div class="project-tags">
+            <span>React</span><span>Node.js</span><span>Tailwind</span>
+          </div>
+          <a href="https://drgichinamukuria.com" target="_blank" rel="noopener" class="project-link">
+            Visit live
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+
+        <div class="project-item">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790355005/liquorbelle_tyvl9d.webp" alt="LiquorBelle" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">E-commerce · Alcohol</div>
+              <h3>LiquorBelle</h3>
+            </div>
+          </div>
+          <p class="summary">Alcohol delivery e-commerce for Nairobi — age verification, catalog, M-Pesa checkout, same-day delivery.</p>
+          <div class="project-tags">
+            <span>React</span><span>Node.js</span><span>M-Pesa</span>
+          </div>
+          <a href="https://liquorbelle.co.ke" target="_blank" rel="noopener" class="project-link">
+            Visit live
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+
+        <div class="project-item">
+          <div class="project-head">
+            <div class="project-logo">
+              <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" alt="BizDev" />
+            </div>
+            <div class="project-head-text">
+              <div class="cat">Website · Studio</div>
+              <h3>BizDev</h3>
+            </div>
+          </div>
+          <p class="summary">Our own site — showcases services, portfolio, and pricing. Built with React + Vite + Tailwind.</p>
+          <div class="project-tags">
+            <span>React</span><span>Vite</span><span>Tailwind</span>
+          </div>
+          <span style="font-size:0.85rem; color:var(--fg-4); font-weight:600;">Live now</span>
+        </div>
+
+      </div>
+
+      <div class="pad" style="margin-top:16px;">
+        <button class="btn btn-primary" onclick="navigate('contact')">Start your project</button>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="screen" id="screen-about">
+      <div class="about-hero">
+        <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" alt="BizDev" />
+        <h1>A small studio that ships like a <span class="gradient-text">larger one.</span></h1>
+        <p>BizDev is a software studio based in Nairobi, Kenya. We build websites, e-commerce stores, mobile apps, and web applications for founders, agencies, and internal teams.</p>
+      </div>
+
+      <div class="section-title">
+        <h2>How we work</h2>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column; gap:10px;">
+        <div class="value-item">
+          <div class="value-num">01</div>
+          <div>
+            <h3>Fixed scope, fixed price</h3>
+            <p>You approve the scope before we start. No hourly billing, no creeping invoices.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-num">02</div>
+          <div>
+            <h3>Weekly demos</h3>
+            <p>You see progress every week. Staging link from day one. Feedback shapes the build.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-num">03</div>
+          <div>
+            <h3>Ship then support</h3>
+            <p>Launch is day one, not the last day. 30–90 days of support included with every project.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-num">04</div>
+          <div>
+            <h3>Built for your business</h3>
+            <p>We ask about revenue before we ask about frameworks. Tech serves the outcome.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>Details</h2>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column; gap:10px;">
+        <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:var(--fg-3); font-size:0.88rem; font-weight:600;">Based in</span>
+          <span style="font-weight:600;">Nairobi, Kenya</span>
+        </div>
+        <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:var(--fg-3); font-size:0.88rem; font-weight:600;">Working with</span>
+          <span style="font-weight:600;">Clients worldwide</span>
+        </div>
+        <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:var(--fg-3); font-size:0.88rem; font-weight:600;">Focus</span>
+          <span style="font-weight:600;">Web · Commerce · Apps</span>
+        </div>
+        <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:var(--fg-3); font-size:0.88rem; font-weight:600;">Reply time</span>
+          <span style="font-weight:600;">Within 24 hours</span>
+        </div>
+      </div>
+
+      <div class="pad" style="margin-top:16px;">
+        <button class="btn btn-primary" onclick="navigate('contact')">Work with us</button>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="screen" id="screen-contact">
+      <div class="contact-hero">
+        <p class="label">Get in touch</p>
+        <h1>Tell us what you want to <span class="gradient-text">build.</span></h1>
+        <p class="mt-8">We reply within 24 hours with a scope, timeline, and price.</p>
+      </div>
+
+      <div class="contact-list">
+        <a href="tel:0740940395" class="contact-item">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="body">
+            <div class="k">Call us</div>
+            <div class="v">0740 940 395</div>
+          </div>
+        </a>
+
+        <a href="https://wa.me/254740940395" target="_blank" rel="noopener" class="contact-item">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="body">
+            <div class="k">WhatsApp</div>
+            <div class="v">+254 740 940 395</div>
+          </div>
+        </a>
+
+        <a href="mailto:info@bizdev.com" class="contact-item">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="body">
+            <div class="k">Email</div>
+            <div class="v">info@bizdev.com</div>
+          </div>
+        </a>
+
+        <div class="contact-item" style="cursor:default;">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="body">
+            <div class="k">Based in</div>
+            <div class="v">Nairobi, Kenya</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>Send a brief</h2>
+      </div>
+
+      <form class="form" id="contactForm" onsubmit="handleSubmit(event)">
+        <input class="field" type="text" name="name" placeholder="Full name" required />
+        <input class="field" type="email" name="email" placeholder="Email address" required />
+        <select class="field" name="service" required>
+          <option value="" disabled selected>What do you need?</option>
+          <option>Website Development</option>
+          <option>E-commerce Store</option>
+          <option>Mobile App</option>
+          <option>Web App / SaaS</option>
+          <option>Something else</option>
+        </select>
+        <input class="field" type="text" name="budget" placeholder="Budget (optional)" />
+        <textarea class="field" name="message" placeholder="Project details, timeline, links…" required></textarea>
+        <button type="submit" class="btn btn-primary" style="margin-top:4px;">
+          Send message
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+
+      <div style="padding:20px; text-align:center; color:var(--fg-4); font-size:0.78rem;">
+        We never share your details. Replies within 24 hours on business days.
+      </div>
+    </section>
+
   </div>
 
-  <div class="showcase">
-    <!-- MOBILE (PHONE) -->
-    <div class="device">
-      <div class="phone">
-        <div class="phone-screen">
-          <!-- status bar -->
-          <div class="status-bar">
-            <span>9:41</span>
-            <span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span>
-          </div>
-          <!-- mobile app content -->
-          <div class="mobile-app">
-            <div class="mobile-header">
-              <h2>Dashboard</h2>
-              <div class="avatar">JD</div>
-            </div>
-            <div class="welcome-card">
-              <h3>Welcome back, Jamie</h3>
-              <p>You have 3 classes today</p>
-              <span class="progress-badge"><i class="fas fa-check-circle"></i> 85% attendance</span>
-            </div>
-            <div class="quick-stats">
-              <div class="stat-item">
-                <i class="fas fa-book-open"></i>
-                <div class="stat-value">6</div>
-                <div class="stat-label">Courses</div>
-              </div>
-              <div class="stat-item">
-                <i class="fas fa-tasks"></i>
-                <div class="stat-value">4</div>
-                <div class="stat-label">Tasks</div>
-              </div>
-              <div class="stat-item">
-                <i class="fas fa-calendar-check"></i>
-                <div class="stat-value">92%</div>
-                <div class="stat-label">Attend</div>
-              </div>
-            </div>
-            <div class="section-title">
-              <span>Today's classes</span>
-              <a href="#">See all</a>
-            </div>
-            <div class="class-list">
-              <div class="class-item">
-                <div class="class-icon">M</div>
-                <div class="class-info">
-                  <h4>Mathematics</h4>
-                  <p>Room 204 · Prof. Chen</p>
-                </div>
-                <div class="class-time">10:30</div>
-              </div>
-              <div class="class-item">
-                <div class="class-icon">S</div>
-                <div class="class-info">
-                  <h4>Science Lab</h4>
-                  <p>Lab 3 · Dr. Patel</p>
-                </div>
-                <div class="class-time">13:15</div>
-              </div>
-              <div class="class-item">
-                <div class="class-icon">E</div>
-                <div class="class-info">
-                  <h4>English Lit</h4>
-                  <p>Room 112 · Ms. Rivera</p>
-                </div>
-                <div class="class-time">15:00</div>
-              </div>
-            </div>
-            <!-- bottom nav -->
-            <div class="bottom-nav">
-              <i class="fas fa-home active"></i>
-              <i class="fas fa-calendar-alt"></i>
-              <i class="fas fa-tasks"></i>
-              <i class="fas fa-user"></i>
-            </div>
-          </div>
+  <!-- ============================================================
+       BOTTOM NAV
+       ============================================================ -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <a href="#" class="nav-item active" data-screen="home" onclick="navigate('home'); return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="#" class="nav-item" data-screen="services" onclick="navigate('services'); return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Services</span>
+      </a>
+      <a href="#" class="nav-item fab" data-screen="contact" onclick="navigate('contact'); return false;">
+        <div class="fab-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         </div>
-      </div>
-      <div class="device-label"><i class="fas fa-mobile-alt"></i> Mobile</div>
+        <span class="fab-label">Contact</span>
+      </a>
+      <a href="#" class="nav-item" data-screen="work" onclick="navigate('work'); return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <span>Work</span>
+      </a>
+      <a href="#" class="nav-item" data-screen="about" onclick="navigate('about'); return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>About</span>
+      </a>
     </div>
+  </nav>
 
-    <!-- TABLET -->
-    <div class="device">
-      <div class="tablet">
-        <div class="tablet-screen">
-          <div class="tablet-app">
-            <div class="tablet-sidebar">
-              <i class="fas fa-home active"></i>
-              <i class="fas fa-calendar-alt"></i>
-              <i class="fas fa-tasks"></i>
-              <i class="fas fa-chart-pie"></i>
-              <i class="fas fa-user-cog"></i>
-            </div>
-            <div class="tablet-main">
-              <div class="tablet-header">
-                <h2>Overview</h2>
-                <div class="avatar">JD</div>
-              </div>
-              <div class="tablet-welcome">
-                <div>
-                  <h3>Hello, Jamie</h3>
-                  <p>3 classes · 2 assignments due</p>
-                </div>
-                <i class="fas fa-chevron-right" style="font-size: 20px; opacity: 0.7;"></i>
-              </div>
-              <div class="tablet-stats">
-                <div class="tablet-stat-card">
-                  <i class="fas fa-book"></i>
-                  <div class="info">
-                    <h4>6</h4>
-                    <span>Courses</span>
-                  </div>
-                </div>
-                <div class="tablet-stat-card">
-                  <i class="fas fa-check-circle"></i>
-                  <div class="info">
-                    <h4>92%</h4>
-                    <span>Attendance</span>
-                  </div>
-                </div>
-                <div class="tablet-stat-card">
-                  <i class="fas fa-star"></i>
-                  <div class="info">
-                    <h4>3.8</h4>
-                    <span>GPA</span>
-                  </div>
-                </div>
-              </div>
-              <div class="section-title" style="margin-bottom: 8px;">
-                <span>Your courses</span>
-                <a href="#">View schedule</a>
-              </div>
-              <div class="tablet-class-grid">
-                <div class="tablet-class-item">
-                  <div class="class-icon">M</div>
-                  <div class="class-info">
-                    <h4>Mathematics</h4>
-                    <p>10:30 · Room 204</p>
-                  </div>
-                </div>
-                <div class="tablet-class-item">
-                  <div class="class-icon">S</div>
-                  <div class="class-info">
-                    <h4>Science</h4>
-                    <p>13:15 · Lab 3</p>
-                  </div>
-                </div>
-                <div class="tablet-class-item">
-                  <div class="class-icon">E</div>
-                  <div class="class-info">
-                    <h4>English</h4>
-                    <p>15:00 · Room 112</p>
-                  </div>
-                </div>
-                <div class="tablet-class-item">
-                  <div class="class-icon">H</div>
-                  <div class="class-info">
-                    <h4>History</h4>
-                    <p>09:00 · Room 301</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="device-label"><i class="fas fa-tablet-alt"></i> Tablet</div>
-    </div>
+</div>
 
-    <!-- DESKTOP / LAPTOP -->
-    <div class="device">
-      <div class="desktop">
-        <div class="desktop-screen">
-          <div class="desktop-app">
-            <div class="desktop-sidebar">
-              <div class="desktop-logo">
-                <i class="fas fa-graduation-cap"></i> EduManage
-              </div>
-              <div class="desktop-nav-item active">
-                <i class="fas fa-home"></i> Dashboard
-              </div>
-              <div class="desktop-nav-item">
-                <i class="fas fa-calendar-alt"></i> Schedule
-              </div>
-              <div class="desktop-nav-item">
-                <i class="fas fa-tasks"></i> Assignments
-              </div>
-              <div class="desktop-nav-item">
-                <i class="fas fa-chart-line"></i> Grades
-              </div>
-              <div class="desktop-nav-item">
-                <i class="fas fa-users"></i> Classes
-              </div>
-              <div class="desktop-nav-item">
-                <i class="fas fa-cog"></i> Settings
-              </div>
-            </div>
-            <div class="desktop-main">
-              <div class="desktop-top-bar">
-                <h2>Dashboard</h2>
-                <div class="desktop-actions">
-                  <i class="fas fa-bell" style="color: #6b8aa8; font-size: 20px;"></i>
-                  <div class="avatar">JD</div>
-                </div>
-              </div>
-              <div class="desktop-welcome-grid">
-                <div class="desktop-welcome-card">
-                  <h3>Good morning, Jamie</h3>
-                  <p>You have 3 classes and 2 assignments due today.</p>
-                  <div class="desktop-mini-stats">
-                    <span><i class="fas fa-clock"></i> 3 classes</span>
-                    <span><i class="fas fa-file-alt"></i> 2 due</span>
-                    <span><i class="fas fa-check-circle"></i> 92% attend</span>
-                  </div>
-                </div>
-                <div class="desktop-quick-card">
-                  <div class="stat-row">
-                    <i class="fas fa-book-open"></i>
-                    <span class="value">6</span>
-                    <span class="label">Courses</span>
-                  </div>
-                  <div class="stat-row">
-                    <i class="fas fa-star"></i>
-                    <span class="value">3.8</span>
-                    <span class="label">GPA</span>
-                  </div>
-                  <div class="stat-row">
-                    <i class="fas fa-trophy"></i>
-                    <span class="value">12</span>
-                    <span class="label">Credits</span>
-                  </div>
-                </div>
-              </div>
-              <div class="section-title">
-                <span>Upcoming classes</span>
-                <a href="#">Full schedule →</a>
-              </div>
-              <div class="desktop-class-grid">
-                <div class="desktop-class-card">
-                  <div class="class-icon">M</div>
-                  <div class="class-info">
-                    <h4>Mathematics</h4>
-                    <p>10:30 · Prof. Chen</p>
-                  </div>
-                </div>
-                <div class="desktop-class-card">
-                  <div class="class-icon">S</div>
-                  <div class="class-info">
-                    <h4>Science Lab</h4>
-                    <p>13:15 · Dr. Patel</p>
-                  </div>
-                </div>
-                <div class="desktop-class-card">
-                  <div class="class-icon">E</div>
-                  <div class="class-info">
-                    <h4>English Lit</h4>
-                    <p>15:00 · Ms. Rivera</p>
-                  </div>
-                </div>
-                <div class="desktop-class-card">
-                  <div class="class-icon">H</div>
-                  <div class="class-info">
-                    <h4>History</h4>
-                    <p>09:00 · Mr. Adams</p>
-                  </div>
-                </div>
-                <div class="desktop-class-card">
-                  <div class="class-icon">A</div>
-                  <div class="class-info">
-                    <h4>Art</h4>
-                    <p>11:45 · Ms. Lee</p>
-                  </div>
-                </div>
-                <div class="desktop-class-card">
-                  <div class="class-icon">P</div>
-                  <div class="class-info">
-                    <h4>Physics</h4>
-                    <p>14:30 · Dr. Wong</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="device-label"><i class="fas fa-laptop"></i> Desktop</div>
-    </div>
-  </div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  var currentScreen = "home";
+
+  function navigate(screen) {
+    if (screen === currentScreen) {
+      // Same screen — scroll to top
+      document.getElementById("screens").scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    // Hide all screens
+    document.querySelectorAll(".screen").forEach(function (s) {
+      s.classList.remove("active");
+    });
+
+    // Show target
+    var target = document.getElementById("screen-" + screen);
+    if (target) target.classList.add("active");
+
+    // Update nav
+    document.querySelectorAll(".nav-item").forEach(function (n) {
+      n.classList.toggle("active", n.getAttribute("data-screen") === screen);
+    });
+
+    // Scroll to top
+    document.getElementById("screens").scrollTo({ top: 0, behavior: "instant" });
+
+    currentScreen = screen;
+
+    // Update URL hash without jumping
+    if (history.replaceState) {
+      history.replaceState(null, "", "#" + screen);
+    }
+  }
+
+  /* ============================================================
+     FORM SUBMIT — mailto fallback
+     ============================================================ */
+  function handleSubmit(e) {
+    e.preventDefault();
+    var form = e.target;
+    var data = new FormData(form);
+    var name = data.get("name") || "";
+    var email = data.get("email") || "";
+    var service = data.get("service") || "";
+    var budget = data.get("budget") || "";
+    var message = data.get("message") || "";
+
+    var subject = encodeURIComponent("Project enquiry — " + (service || "BizDev"));
+    var body = encodeURIComponent(
+      "Name: " + name + "\n" +
+      "Email: " + email + "\n" +
+      "Service: " + service + "\n" +
+      "Budget: " + (budget || "Not specified") + "\n\n" +
+      "Message:\n" + message
+    );
+
+    window.location.href = "mailto:info@bizdev.com?subject=" + subject + "&body=" + body;
+
+    showToast("Opening your email app…");
+    form.reset();
+  }
+
+  /* ============================================================
+     TOAST
+     ============================================================ */
+  var toastTimer;
+  function showToast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      t.classList.remove("show");
+    }, 2600);
+  }
+
+  /* ============================================================
+     HASH ROUTING (shareable links)
+     ============================================================ */
+  (function init() {
+    var hash = (window.location.hash || "").replace("#", "");
+    var valid = ["home", "services", "work", "about", "contact"];
+    if (hash && valid.indexOf(hash) !== -1) {
+      navigate(hash);
+    }
+
+    window.addEventListener("hashchange", function () {
+      var h = (window.location.hash || "").replace("#", "");
+      if (h && valid.indexOf(h) !== -1 && h !== currentScreen) {
+        navigate(h);
+      }
+    });
+  })();
+</script>
+
 </body>
 </html>

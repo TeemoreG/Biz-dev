@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
-<meta name="theme-color" content="#001cff" />
+<meta name="theme-color" content="#f5f7fb" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="BizDev" />
 <title>BizDev — Software Studio</title>
 <meta name="description" content="Websites, apps & e-commerce built to scale. Custom software from Nairobi for clients worldwide." />
 <link rel="apple-touch-icon" href="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" />
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,32 +18,34 @@
 
 <style>
 /* ============================================================
-   TOKENS
+   TOKENS — softer, less saturated blue palette
    ============================================================ */
 :root {
   --font-brand: "Space Grotesk", system-ui, sans-serif;
   --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --bg: #ffffff;
-  --bg-soft: #f4f7fb;
-  --bg-soft-2: #eaf0f8;
-  --bg-dark: #071124;
-  --bg-dark-2: #0d1a33;
+  --bg-soft: #f5f7fb;
+  --bg-soft-2: #eaeff7;
+  --bg-dark: #0e1728;
+  --bg-dark-2: #172036;
 
-  --fg: #05080f;
-  --fg-2: #1c2740;
-  --fg-3: #47536b;
-  --fg-4: #6b7794;
+  --fg: #0f1a2e;
+  --fg-2: #263248;
+  --fg-3: #4d5a72;
+  --fg-4: #7a869c;
 
-  --accent: #001cff;
-  --accent-2: #00a2ff;
-  --accent-dim: #0014b8;
-  --accent-soft: #e6f0ff;
+  /* Softer blues — reduced saturation */
+  --accent: #2451d6;
+  --accent-2: #3a72e0;
+  --accent-dim: #1c40ab;
+  --accent-soft: #eaf0fd;
+  --accent-tint: #f4f7fe;
 
-  --border: #e2e8f0;
-  --border-2: #cbd5e1;
+  --border: #e5eaf2;
+  --border-2: #cfd8e6;
 
-  --grad: linear-gradient(135deg, #00a2ff 0%, #001cff 100%);
+  --grad: linear-gradient(135deg, #3a72e0 0%, #2451d6 100%);
 
   --radius-sm: 10px;
   --radius: 16px;
@@ -49,7 +55,6 @@
   --nav-h: 64px;
   --header-h: 60px;
 
-  /* Safe areas */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -74,7 +79,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   overscroll-behavior-y: none;
-  user-select: none;
 }
 
 img, svg { display: block; max-width: 100%; height: auto; }
@@ -84,8 +88,6 @@ input, textarea, select { font-family: inherit; font-size: 16px; color: inherit;
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
 ::selection { background: var(--accent); color: #fff; }
-
-/* Scrollbars hidden on mobile, subtle on desktop */
 ::-webkit-scrollbar { width: 0; height: 0; }
 
 /* ============================================================
@@ -98,7 +100,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   min-height: 100dvh;
   background: var(--bg);
   position: relative;
-  box-shadow: 0 0 60px -20px rgba(10,20,40,0.15);
+  box-shadow: 0 0 60px -20px rgba(10,20,40,0.12);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -115,13 +117,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ============================================================
-   HEADER (App bar)
+   HEADER
    ============================================================ */
 .appbar {
   position: sticky;
   top: 0;
   z-index: 30;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
@@ -147,29 +149,35 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 
 .appbar-logo img {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
 }
 
 .appbar-logo .accent { color: var(--accent); }
 
+.appbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .appbar-action {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: var(--accent-soft);
   color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s;
+  transition: all 0.15s;
 }
-.appbar-action:active { transform: scale(0.92); }
-.appbar-action svg { width: 20px; height: 20px; }
+.appbar-action:active { transform: scale(0.92); background: var(--accent-tint); }
+.appbar-action svg { width: 18px; height: 18px; }
 
 /* ============================================================
-   SCREENS (page views)
+   SCREENS
    ============================================================ */
 .screens {
   flex: 1;
@@ -244,10 +252,12 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 .btn-primary {
   background: var(--accent);
   color: #fff;
+  box-shadow: 0 6px 16px -6px rgba(36,81,214,0.4);
 }
 .btn-primary:active {
   background: var(--accent-dim);
   transform: scale(0.98);
+  box-shadow: 0 2px 8px -4px rgba(36,81,214,0.5);
 }
 
 .btn-secondary {
@@ -260,16 +270,17 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
   transform: scale(0.98);
 }
 
-.btn-outline {
+.btn-ghost {
   background: transparent;
+  color: var(--accent);
   border: 1.5px solid var(--border-2);
-  color: var(--fg);
 }
+.btn-ghost:active { background: var(--accent-tint); }
 
 .btn svg { width: 18px; height: 18px; }
 
 /* ============================================================
-   SECTIONS
+   HELPERS
    ============================================================ */
 .pad { padding: 20px; }
 .pad-x { padding-left: 20px; padding-right: 20px; }
@@ -285,7 +296,7 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
    ============================================================ */
 .hero {
   padding: 28px 20px 24px;
-  background: radial-gradient(120% 90% at 100% 0%, #e6f0ff 0%, transparent 55%);
+  background: radial-gradient(120% 90% at 100% 0%, var(--accent-tint) 0%, transparent 60%);
   text-align: center;
 }
 
@@ -342,17 +353,37 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 }
 
 /* ============================================================
-   CARDS / LISTS
+   PILL
    ============================================================ */
-.card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px;
-  transition: all 0.15s;
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
-.card:active { transform: scale(0.99); }
 
+.pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* ============================================================
+   SECTION TITLE
+   ============================================================ */
 .section-title {
   padding: 28px 20px 12px;
   display: flex;
@@ -367,7 +398,19 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
   font-weight: 600;
 }
 
-/* Service card */
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition: all 0.15s;
+}
+.card:active { transform: scale(0.99); }
+
+/* Service list item */
 .service-item {
   display: flex;
   align-items: center;
@@ -409,13 +452,10 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.service-item .chev {
-  color: var(--fg-4);
-  flex-shrink: 0;
-}
+.service-item .chev { color: var(--fg-4); flex-shrink: 0; }
 .service-item .chev svg { width: 18px; height: 18px; }
 
-/* Project card */
+/* Project item */
 .project-item {
   background: #fff;
   border: 1px solid var(--border);
@@ -497,15 +537,18 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 .project-link svg { width: 14px; height: 14px; }
 
 /* ============================================================
-   CONTACT SCREEN
+   SCREEN HERO (Services / Work / Contact headers)
    ============================================================ */
-.contact-hero {
+.screen-hero {
   padding: 32px 20px 24px;
-  background: radial-gradient(120% 80% at 100% 0%, #e6f0ff 0%, transparent 55%);
+  background: radial-gradient(120% 80% at 100% 0%, var(--accent-tint) 0%, transparent 60%);
 }
-.contact-hero h1 { font-size: 1.9rem; margin-bottom: 8px; }
-.contact-hero p { color: var(--fg-3); font-size: 0.95rem; }
+.screen-hero h1 { font-size: 1.9rem; margin-bottom: 8px; }
+.screen-hero p { color: var(--fg-3); font-size: 0.95rem; }
 
+/* ============================================================
+   CONTACT ITEMS
+   ============================================================ */
 .contact-list { display: flex; flex-direction: column; gap: 10px; padding: 0 20px; }
 
 .contact-item {
@@ -524,14 +567,18 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
   width: 46px;
   height: 46px;
   border-radius: 12px;
-  background: var(--accent-soft);
-  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.contact-item .ico svg { width: 20px; height: 20px; }
+
+.contact-item .ico.whatsapp { background: #e7f8ee; color: #25D366; }
+.contact-item .ico.phone { background: var(--accent-soft); color: var(--accent); }
+.contact-item .ico.email { background: #fdf1e7; color: #d97706; }
+.contact-item .ico.location { background: #fce7f3; color: #db2777; }
+
+.contact-item .ico svg { width: 22px; height: 22px; }
 
 .contact-item .body { flex: 1; min-width: 0; }
 .contact-item .k {
@@ -550,8 +597,12 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.contact-item .chev { color: var(--fg-4); flex-shrink: 0; }
+.contact-item .chev svg { width: 18px; height: 18px; }
 
-/* Form */
+/* ============================================================
+   FORM
+   ============================================================ */
 .form { display: flex; flex-direction: column; gap: 12px; padding: 0 20px; }
 
 .field {
@@ -568,12 +619,12 @@ h3 { font-size: 1.1rem; line-height: 1.25; }
 .field::placeholder { color: var(--fg-4); font-weight: 500; }
 .field:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(0,28,255,0.08);
+  box-shadow: 0 0 0 4px rgba(36,81,214,0.08);
 }
 textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
 /* ============================================================
-   ABOUT SCREEN
+   ABOUT
    ============================================================ */
 .about-hero {
   padding: 32px 20px 24px;
@@ -614,6 +665,204 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
 .value-item h3 { font-size: 0.98rem; margin-bottom: 4px; }
 .value-item p { font-size: 0.85rem; color: var(--fg-3); line-height: 1.5; }
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+.faq {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+
+.faq-q {
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--fg);
+  transition: background 0.15s;
+}
+.faq-q:active { background: var(--bg-soft); }
+
+.faq-q .ico {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s;
+}
+.faq-q .ico svg { width: 12px; height: 12px; }
+
+.faq-item.open .faq-q .ico { transform: rotate(45deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-item.open .faq-a { max-height: 400px; }
+
+.faq-a p {
+  padding: 0 16px 16px;
+  color: var(--fg-3);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   PROCESS TIMELINE
+   ============================================================ */
+.process-item {
+  display: flex;
+  gap: 14px;
+  position: relative;
+}
+
+.process-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 42px;
+  bottom: -12px;
+  width: 2px;
+  background: var(--border);
+}
+
+.process-step {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.process-body { flex: 1; padding-bottom: 20px; }
+.process-body h3 { font-size: 1rem; margin-bottom: 4px; }
+.process-body p { font-size: 0.85rem; color: var(--fg-3); line-height: 1.5; }
+
+/* ============================================================
+   TESTIMONIAL
+   ============================================================ */
+.testimonial {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.testimonial .stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 10px;
+  color: #f59e0b;
+}
+.testimonial .stars svg { width: 14px; height: 14px; }
+
+.testimonial blockquote {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  color: var(--fg-2);
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.testimonial .who {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.testimonial .avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+.testimonial .who .name { font-weight: 600; font-size: 0.85rem; color: var(--fg); }
+.testimonial .who .role { font-size: 0.75rem; color: var(--fg-4); }
+
+/* ============================================================
+   SOCIAL STRIP
+   ============================================================ */
+.socials {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+.social {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-3);
+  transition: all 0.15s;
+}
+.social:active { transform: scale(0.94); }
+.social svg { width: 20px; height: 20px; }
+
+.social.github { color: #181717; }
+.social.linkedin { color: #0A66C2; }
+.social.twitter { color: #000000; }
+.social.instagram { color: #E1306C; }
+.social.whatsapp { color: #25D366; }
+.social.email { color: var(--accent); }
+
+/* ============================================================
+   FLOATING CALL BAR (mobile sticky)
+   ============================================================ */
+.call-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 25;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  padding-bottom: calc(12px + var(--safe-bottom));
+  display: none;
+  gap: 10px;
+}
+.call-bar.show { display: flex; }
+.call-bar .btn { flex: 1; padding: 13px 16px; font-size: 0.9rem; }
 
 /* ============================================================
    BOTTOM NAV
@@ -659,22 +908,12 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
   transition: transform 0.2s;
 }
 
-.nav-item.active {
-  color: var(--accent);
-}
-.nav-item.active svg {
-  stroke-width: 2.4;
-  transform: translateY(-1px);
-}
+.nav-item.active { color: var(--accent); }
+.nav-item.active svg { stroke-width: 2.4; transform: translateY(-1px); }
+.nav-item:active svg { transform: scale(0.9); }
 
-.nav-item:active svg {
-  transform: scale(0.9);
-}
-
-/* Center FAB (Chat / Contact) */
-.nav-item.fab {
-  position: relative;
-}
+/* FAB */
+.nav-item.fab { position: relative; }
 .nav-item.fab .fab-circle {
   width: 52px;
   height: 52px;
@@ -684,15 +923,11 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px -4px rgba(0,28,255,0.4);
+  box-shadow: 0 8px 20px -4px rgba(36,81,214,0.4);
   transform: translateY(-14px);
   margin-bottom: -14px;
 }
-.nav-item.fab .fab-circle svg {
-  width: 24px;
-  height: 24px;
-  transform: none;
-}
+.nav-item.fab .fab-circle svg { width: 24px; height: 24px; transform: none; }
 .nav-item.fab:active .fab-circle { transform: translateY(-12px) scale(0.95); }
 .nav-item.fab .fab-label {
   position: absolute;
@@ -706,7 +941,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 .nav-item.fab.active .fab-label { color: var(--accent); }
 
 /* ============================================================
-   TOAST / CONFIRM
+   TOAST
    ============================================================ */
 .toast {
   position: fixed;
@@ -726,35 +961,6 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
   text-align: center;
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
-
-/* ============================================================
-   HERO SCROLL SNAP INDICATOR (small dot)
-   ============================================================ */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: var(--radius-full);
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.pill .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 1.6s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.85); }
-}
 
 /* ============================================================
    REDUCED MOTION
@@ -777,11 +983,16 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
         <img src="https://res.cloudinary.com/dvqjgbdhp/image/upload/v1790431989/bizdev_logo_td90un.png" alt="BizDev" />
         Biz<span class="accent">Dev</span>
       </a>
-      <a href="tel:0740940395" class="appbar-action" aria-label="Call BizDev">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
-      </a>
+      <div class="appbar-actions">
+        <a href="https://wa.me/254740940395" target="_blank" rel="noopener" class="appbar-action" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+        <a href="tel:0740940395" class="appbar-action" aria-label="Call BizDev">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -909,20 +1120,66 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
         </div>
       </div>
 
-      <div class="pad" style="margin-top:24px;">
+      <div class="section-title">
+        <h2>What clients say</h2>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column; gap:10px;">
+        <div class="testimonial">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <blockquote>"Built our store in three weeks and it just works. M-Pesa checkout, delivery sync, everything."</blockquote>
+          <div class="who">
+            <div class="avatar">AO</div>
+            <div>
+              <div class="name">Achieng' O.</div>
+              <div class="role">Founder, Kilimani Wine Co.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>Find us online</h2>
+      </div>
+
+      <div class="socials" style="margin-bottom:32px;">
+        <a href="https://wa.me/254740940395" target="_blank" rel="noopener" class="social whatsapp" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+        <a href="mailto:info@bizdev.com" class="social email" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        </a>
+        <a href="#" class="social github" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.09c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
+        </a>
+        <a href="#" class="social linkedin" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="#" class="social instagram" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+
+      <div class="pad" style="padding-bottom:32px;">
         <div style="background:var(--bg-dark); border-radius:var(--radius-lg); padding:24px; color:#fff; position:relative; overflow:hidden;">
-          <div style="position:absolute; top:-40%; right:-20%; width:240px; height:240px; background:radial-gradient(circle, rgba(0,28,255,0.5) 0%, transparent 70%);"></div>
-          <p class="label" style="color:#6b82a8; position:relative;">Ready when you are</p>
+          <div style="position:absolute; top:-40%; right:-20%; width:240px; height:240px; background:radial-gradient(circle, rgba(58,114,224,0.4) 0%, transparent 70%);"></div>
+          <p class="label" style="color:#8ba0bf; position:relative;">Ready when you are</p>
           <h2 style="color:#fff; margin:8px 0 12px; font-size:1.25rem; position:relative;">Tell us what you want to build.</h2>
           <p style="color:#a8b6cc; font-size:0.9rem; margin-bottom:18px; position:relative;">Fixed-scope proposal within 24 hours.</p>
-          <button class="btn btn-primary" style="background:var(--accent-2); position:relative;" onclick="navigate('contact')">Start a project</button>
+          <button class="btn btn-primary" style="position:relative;" onclick="navigate('contact')">Start a project</button>
         </div>
       </div>
     </section>
 
     <!-- ============ SERVICES ============ -->
     <section class="screen" id="screen-services">
-      <div class="contact-hero">
+      <div class="screen-hero">
         <p class="label">Services</p>
         <h1>Four things we do <span class="gradient-text">exceptionally well.</span></h1>
         <p class="mt-8">Fixed scope. Fixed price. No surprise invoices.</p>
@@ -951,7 +1208,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
           </div>
         </div>
 
-        <div class="card" style="border-color: rgba(0,28,255,0.25);">
+        <div class="card" style="border-color: rgba(36,81,214,0.25);">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:14px;">
             <div style="display:flex; align-items:center; gap:14px;">
               <div style="width:46px; height:46px; border-radius:12px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center;">
@@ -1019,14 +1276,49 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
       </div>
 
+      <div class="section-title">
+        <h2>Our process</h2>
+      </div>
+
+      <div class="pad-x" style="display:flex; flex-direction:column;">
+        <div class="process-item">
+          <div class="process-step">1</div>
+          <div class="process-body">
+            <h3>Discovery</h3>
+            <p>A 30-minute call to map your goals, users, and constraints. You leave with a scope and a fixed price.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-step">2</div>
+          <div class="process-body">
+            <h3>Design</h3>
+            <p>Wireframes then UI. You approve every screen before a single line of code is written.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-step">3</div>
+          <div class="process-body">
+            <h3>Build</h3>
+            <p>Weekly demos, staging link from day one. No black boxes — you watch it grow.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-step">4</div>
+          <div class="process-body">
+            <h3>Launch</h3>
+            <p>Deploy, monitor, iterate. Full handover with docs, training, and 30–90 days of support.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="pad" style="margin-top:16px;">
         <button class="btn btn-primary" onclick="navigate('contact')">Discuss your project</button>
       </div>
     </section>
 
-    <!-- ============ WORK / PROJECTS ============ -->
+    <!-- ============ WORK ============ -->
     <section class="screen" id="screen-work">
-      <div class="contact-hero">
+      <div class="screen-hero">
         <p class="label">Selected work</p>
         <h1>Real projects.<br><span class="gradient-text">Real clients.</span></h1>
         <p class="mt-8">A sample of what we've shipped across Kenya and beyond.</p>
@@ -1202,6 +1494,50 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
       </div>
 
       <div class="section-title">
+        <h2>Common questions</h2>
+      </div>
+
+      <div class="pad-x" style="padding-bottom:16px;">
+        <div class="faq">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>How long does a typical project take?</span>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Websites take 1–3 weeks. E-commerce stores 2–5 weeks. Mobile apps 4–8 weeks. Web apps and SaaS platforms 6–12 weeks depending on scope. We give you a fixed timeline after the discovery call.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Do you work with clients outside Kenya?</span>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Yes. Most of our clients are outside Kenya. We communicate via WhatsApp, email, and video calls. Payments accepted in USD or KES via M-Pesa, card, or bank transfer.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>What payment methods do you accept?</span>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>M-Pesa, card, Google Pay, and bank transfer. Projects are billed in two parts: 40% deposit to lock the start date, 60% on delivery.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Do you offer support after launch?</span>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Yes. Every project includes 30–90 days of post-launch support depending on the package. After that, we offer monthly retainers for ongoing maintenance and improvements.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <span>Can you take over an existing project?</span>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Yes, if the codebase is in reasonable shape. We do a free 30-minute audit and let you know honestly whether we can improve it or if a rebuild makes more sense.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
         <h2>Details</h2>
       </div>
 
@@ -1231,7 +1567,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
     <!-- ============ CONTACT ============ -->
     <section class="screen" id="screen-contact">
-      <div class="contact-hero">
+      <div class="screen-hero">
         <p class="label">Get in touch</p>
         <h1>Tell us what you want to <span class="gradient-text">build.</span></h1>
         <p class="mt-8">We reply within 24 hours with a scope, timeline, and price.</p>
@@ -1239,37 +1575,40 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
       <div class="contact-list">
         <a href="tel:0740940395" class="contact-item">
-          <div class="ico">
+          <div class="ico phone">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           </div>
           <div class="body">
             <div class="k">Call us</div>
             <div class="v">0740 940 395</div>
           </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
         </a>
 
         <a href="https://wa.me/254740940395" target="_blank" rel="noopener" class="contact-item">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <div class="ico whatsapp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           </div>
           <div class="body">
             <div class="k">WhatsApp</div>
             <div class="v">+254 740 940 395</div>
           </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
         </a>
 
         <a href="mailto:info@bizdev.com" class="contact-item">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="ico email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
           </div>
           <div class="body">
             <div class="k">Email</div>
             <div class="v">info@bizdev.com</div>
           </div>
+          <div class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
         </a>
 
         <div class="contact-item" style="cursor:default;">
-          <div class="ico">
+          <div class="ico location">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div class="body">
@@ -1324,7 +1663,7 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
       </a>
       <a href="#" class="nav-item fab" data-screen="contact" onclick="navigate('contact'); return false;">
         <div class="fab-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <span class="fab-label">Contact</span>
       </a>
@@ -1341,50 +1680,49 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
 
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-  /* ============================================================
-     NAVIGATION
-     ============================================================ */
   var currentScreen = "home";
 
   function navigate(screen) {
     if (screen === currentScreen) {
-      // Same screen — scroll to top
       document.getElementById("screens").scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    // Hide all screens
     document.querySelectorAll(".screen").forEach(function (s) {
       s.classList.remove("active");
     });
 
-    // Show target
     var target = document.getElementById("screen-" + screen);
     if (target) target.classList.add("active");
 
-    // Update nav
     document.querySelectorAll(".nav-item").forEach(function (n) {
       n.classList.toggle("active", n.getAttribute("data-screen") === screen);
     });
 
-    // Scroll to top
     document.getElementById("screens").scrollTo({ top: 0, behavior: "instant" });
 
     currentScreen = screen;
 
-    // Update URL hash without jumping
     if (history.replaceState) {
       history.replaceState(null, "", "#" + screen);
     }
   }
 
-  /* ============================================================
-     FORM SUBMIT — mailto fallback
-     ============================================================ */
+  function toggleFaq(btn) {
+    var item = btn.closest(".faq-item");
+    var isOpen = item.classList.contains("open");
+
+    // Close all
+    document.querySelectorAll(".faq-item").forEach(function (i) {
+      i.classList.remove("open");
+    });
+
+    if (!isOpen) item.classList.add("open");
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     var form = e.target;
@@ -1410,9 +1748,6 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
     form.reset();
   }
 
-  /* ============================================================
-     TOAST
-     ============================================================ */
   var toastTimer;
   function showToast(msg) {
     var t = document.getElementById("toast");
@@ -1424,9 +1759,6 @@ textarea.field { resize: vertical; min-height: 110px; font-family: inherit; }
     }, 2600);
   }
 
-  /* ============================================================
-     HASH ROUTING (shareable links)
-     ============================================================ */
   (function init() {
     var hash = (window.location.hash || "").replace("#", "");
     var valid = ["home", "services", "work", "about", "contact"];
